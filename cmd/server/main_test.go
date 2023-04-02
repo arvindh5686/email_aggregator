@@ -32,7 +32,7 @@ func TestEmailEndpoint(t *testing.T) {
 		// convert the Reader to an io.ReadCloser
 		resBody := ioutil.NopCloser(bodyReader)
 		mockHttpClient.EXPECT().Do(gomock.Any()).Return(&netHttp.Response{StatusCode: netHttp.StatusCreated, Body: resBody}, nil).Times(1)
-		emailSender := service.EmailSender{HttpClient: &http.RetryableClient{HttpClient: mockHttpClient}, Provider: sendGridProvider}
+		emailSender := &service.EmailSenderImpl{HttpClient: &http.RetryableClient{HttpClient: mockHttpClient}, Provider: sendGridProvider}
 		router.POST("/email", handler.SendEmailHandler(emailSender))
 		emailDto := buildEmailDto()
 		reqBody, _ := json.Marshal(emailDto)
@@ -54,7 +54,7 @@ func TestEmailEndpoint(t *testing.T) {
 		resBody := ioutil.NopCloser(bodyReader)
 		mockHttpClient.EXPECT().Do(gomock.Any()).
 			Return(&netHttp.Response{StatusCode: netHttp.StatusInternalServerError, Body: resBody}, errors.New("error occurred")).Times(1)
-		emailSender := service.EmailSender{HttpClient: &http.RetryableClient{HttpClient: mockHttpClient}, Provider: sendGridProvider}
+		emailSender := &service.EmailSenderImpl{HttpClient: &http.RetryableClient{HttpClient: mockHttpClient}, Provider: sendGridProvider}
 		router.POST("/email", handler.SendEmailHandler(emailSender))
 		emailDto := buildEmailDto()
 		reqBody, _ := json.Marshal(emailDto)
@@ -66,7 +66,7 @@ func TestEmailEndpoint(t *testing.T) {
 	t.Run("fail_http_400_missing_fields", func(t *testing.T) {
 		httpRecorder := httptest.NewRecorder()
 		ctx, router := gin.CreateTestContext(httpRecorder)
-		emailSender := service.EmailSender{}
+		emailSender := &service.EmailSenderImpl{}
 		router.POST("/email", handler.SendEmailHandler(emailSender))
 		emailDto := buildEmailDto()
 		emailDto.FromAddress = "" // clear from_address
