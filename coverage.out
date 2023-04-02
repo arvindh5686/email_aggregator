@@ -1,0 +1,10 @@
+mode: set
+email_aggregator/cmd/server/main.go:21.13,33.2 11 1
+email_aggregator/cmd/server/main.go:35.47,43.2 7 1
+email_aggregator/cmd/server/main.go:45.48,51.2 5 1
+email_aggregator/cmd/server/main.go:53.13,62.2 8 0
+email_aggregator/cmd/server/main.go:64.36,69.2 4 0
+email_aggregator/cmd/server/main.go:71.44,78.24 6 0
+email_aggregator/cmd/server/main.go:82.2,85.81 3 0
+email_aggregator/cmd/server/main.go:78.24,80.3 1 0
+email_aggregator/cmd/server/main.go:88.57,91.2 2 0
