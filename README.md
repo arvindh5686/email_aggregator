@@ -1,5 +1,7 @@
 <h2>Email Aggregator</h2>
 
+Email aggregator is a service which exposes a REST API for sending emails. It works by integrating with email delivery providers like sendgrid and mailgun. 
+
 <h3>Settings</h3>
 
 The following env vars are available to configure sendgrid and mailgun providers:
@@ -50,5 +52,6 @@ go test ./...
 * The current implementation uses a flag to switch between sendgrid and mailgun. This can be improved by using circuit breakers and automatically falling back if the current provider is down.
   * This can be done locally i.e within each pod or at the service mesh level. Istio supports setting circuit breaking per service.
 * Logging framework needs some improvement since it is not possible to trace requests for troubleshooting. This can be improved by adding more context to the logs like request_id, user_id etc,.
+* For handling higher volume of email send requests through the API, we can decouple the provider integration from the web server by having separate workers for the web layer and the provider integration layer. The web server can receive requests from the users, enqueue a message to a message broker like kafka and return a response. This way we can throttle the async email delivery workers to be under the providers rate limits. The tradeoff here is between reliability and complexity since there is an additional network hop for delivering emails with this approach.
 
 
