@@ -36,7 +36,7 @@ go test ./...
 <h3>Choice of tools</h3>
 
 * Programming language - GO
-  * GO is highly performant and is used for building highly scalable systems. It is easy to use and statically typed minimizing chances of errors
+  * GO is statically typed, highly performant and is used for building highly scalable systems.
 * Web framework - GIN
   * Easy to set up, highly performant and supports adding middlewares
 
@@ -44,10 +44,11 @@ go test ./...
 
 * The implementation includes an additional `service` layer which acts as the entrypoint for the business logic. While it is possible the HTTP API `handler` layer could have directly used the HTTP client for making requests for simplicity, having the `service` layer will support additional API types in the future like gRPC, GraphQL etc. Some of the validations in the `handler` needs to be moved to the service layer to keep the API layer thin and for maximum code re-use in the `service` layer.
 
-<h3>Future optimizations</h3>
+<h3>Future optimizations and improvements</h3>
 
 * The database access layer is left unimplemented but can be used for storing input data. In case the service fails to send emails, the stored data can be used for retrying.
 * The current implementation uses a flag to switch between sendgrid and mailgun. This can be improved by using circuit breakers and automatically falling back if the current provider is down.
   * This can be done locally i.e within each pod or at the service mesh level. Istio supports setting circuit breaking per service.
+* Logging framework needs some improvement since it is not possible to trace requests for troubleshooting. This can be improved by adding more context to the logs like request_id, user_id etc,.
 
 
