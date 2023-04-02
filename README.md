@@ -20,14 +20,18 @@ The following env vars are available to configure sendgrid and mailgun providers
 
 <h3>How to Install</h3>
 
-1. go build cmd/server/main.go
-2. ./main
+```
+go build cmd/server/main.go
+./main
+```
 
 This will start the web server at port 8080. This can be changed by setting the HTTP_PORT env var
 
 <h3>How to run tests</h3>
 
+```
 go test ./...
+```
 
 <h3>Choice of tools</h3>
 
