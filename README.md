@@ -44,7 +44,7 @@ go test ./...
 
 <h3>Trade offs</h3>
 
-* The implementation includes an additional `service` layer which acts as the entrypoint for the business logic. While it is possible the HTTP API `handler` layer could have directly used the HTTP client for making requests for simplicity, having the `service` layer will support additional API types in the future like gRPC, GraphQL etc. Some of the validations in the `handler` needs to be moved to the service layer to keep the API layer thin and for maximum code re-use in the `service` layer.
+* The implementation includes an additional `service` layer that acts as the entry point for the business logic. While it is possible for the HTTP API `handler` layer to directly use the HTTP client for making requests to simplify things, having the `service` layer will support additional API types in the future, such as gRPC, GraphQL, and so on. Some of the validations in the 'handler' need to be moved to the service layer to keep the API layer thin and for maximum code reuse in the `service` layer..
 
 <h3>Future optimizations and improvements</h3>
 
